@@ -7,7 +7,6 @@ class Graph{
 public:
     void addEdge(T x,T y){
         um[x].push_back(y);
-        um[y].push_back(x);
     }
     void detectCycleUtil(T node,map<T,bool>& visited,int& flag){
        if(visited[node]==false && flag==0){
