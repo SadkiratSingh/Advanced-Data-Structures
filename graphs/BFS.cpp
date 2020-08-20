@@ -11,6 +11,9 @@ public:
     }
     void bfs(T src){
         map<T,bool>visited;
+        for(auto p:um){
+            visited[p.first]=false;
+        }
         queue<T>Q;
         Q.push(src);
         visited[src]=true;
