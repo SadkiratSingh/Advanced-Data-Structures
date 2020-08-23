@@ -51,4 +51,7 @@ Dijkstra (G, w, r) {
 > * The Prim, which searches for the minimum spanning tree, only cares about the minimum of the total edges cover all the vertices. The relax function is alt = w(u,v)
 > * The Dijkstra, which searches for the minimum path length, so it cares about the edge accumulation. The relax function is alt = w(u,v) + u.key
 
+## Time Complexity in detecting cycle using disjoint sets concept->
+#### O(E**V).This is because we process every edge in the edge list. Further in each cycle of procession we check whether the nodes making the edge belong to different or same sets.
+
 
