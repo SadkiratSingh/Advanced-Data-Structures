@@ -13,12 +13,14 @@ public:
         map<int,int>cost;
         set<pair<int,int>>prim;
         map<int,bool>visited;
+        map<int,int>par;
         for(auto node:g){// setting initial costs to not defined
             cost[node.first]=INT_MAX;
             visited[node.first]=false; //not visited any nodes yet
         }
         cost[src]=0;
         prim.insert(make_pair(0,src));
+        par[src]=-1;
         while(!prim.empty()){
             auto f=*(prim.begin());
             prim.erase(prim.begin());
@@ -35,11 +37,16 @@ public:
                         prim.erase(search);
                     prim.insert(make_pair(new_nbr_cost,nbr));
                     cost[nbr]=new_nbr_cost;
+                    par[nbr]=mincostnode;
                 }
             }
         }
+        //print COST
         for(auto x:cost)
             cout<<x.first<<"->"<<x.second<<endl;
+        //draw MST
+        for(auto x:par)
+            cout<<x.first<<"-->"<<x.second<<endl;
     }
 };
 
