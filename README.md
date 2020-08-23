@@ -8,7 +8,8 @@
 ----------------------------
 * #### Another important difference concerns what types of graphs the algorithms work on. Prim's algorithm works on undirected graphs only, since the concept of an MST assumes that graphs are inherently undirected. (There is something called a "minimum spanning arborescence" for directed graphs, but algorithms to find them are much more complicated). Dijkstra's algorithm will work fine on directed graphs, since shortest path trees can indeed be directed. Additionally, Dijkstra's algorithm does not necessarily yield the correct solution in graphs containing negative edge weights, while Prim's algorithm can handle this.
 ----------------------------
-## Djikstra's algorithm doesn't create a MST, it finds the shortest path.
+
+### Djikstra's algorithm doesn't create a MST, it finds the shortest path.
 
 Consider this graph
 
@@ -17,7 +18,7 @@ Consider this graph
       \         /
         -------
            9
-The shortest path is 9, while the MST is a different 'path' at 10.
+###### The shortest path is 9, while the MST is a different 'path' at 10.
 -----------------------------
 
 ## Prim and Dijkstra algorithms are almost the same, except for the "relax function".
