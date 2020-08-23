@@ -12,11 +12,11 @@
 
 Consider this graph
 
->       5     5
->  s *-----*-----* t
->    \         /
->       -------
->         9
+        5     5
+   s *-----*-----* t
+      \         /
+        -------
+           9
 The shortest path is 9, while the MST is a different 'path' at 10.
 -----------------------------
 
@@ -58,9 +58,8 @@ Dijkstra (G, w, r) {
                     v.parent = u
                     v.key = alt
 }
-The only difference is pointed out by the arrow, which is the relax function.
 
-> The Prim, which searches for the minimum spanning tree, only cares about the minimum of the total edges cover all the vertices. The relax function is alt = w(u,v)
-> The Dijkstra, which searches for the minimum path length, so it cares about the edge accumulation. The relax function is alt = w(u,v) + u.key
+> * The Prim, which searches for the minimum spanning tree, only cares about the minimum of the total edges cover all the vertices. The relax function is alt = w(u,v)
+> * The Dijkstra, which searches for the minimum path length, so it cares about the edge accumulation. The relax function is alt = w(u,v) + u.key
 
 
