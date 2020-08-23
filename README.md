@@ -18,12 +18,13 @@ graph TD;
 ### Djikstra's algorithm doesn't create a MST, it finds the shortest path.
 
 Consider this graph
-
-        5     5
-   s *-----*-----* t
-      \         /
-        -------
-           9
+        5       5 
+   s *______*______* t
+      \           /
+        _________
+           10
+          
+          
 ###### The shortest path is 9, while the MST is a different 'path' at 10.
 -----------------------------
 
