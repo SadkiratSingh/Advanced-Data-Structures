@@ -54,8 +54,7 @@ Dijkstra (G, w, r) {
 ## Time Complexity in detecting cycle in graphs using disjoint sets concept->
 #### O(EXV).This is because we process every edge in the edge list. Further in each cycle of procession we check whether the nodes making the edge belong to different or same sets.
 
-## Important points related to graph theory
-In graph theory, a branch of mathematics, the rank of an undirected graph has two unrelated definitions. Let n equal the number of vertices of the graph.
-* n the matrix theory of graphs the rank r of an undirected graph is defined as the rank of its adjacency matrix. Analogously, the nullity of the graph is the nullity of its adjacency matrix, which equals n − r.
-* In the matroid theory of graphs the rank of an undirected graph is defined as the number n − c, where c is the number of connected components of the graph.
+## Motivation Behind Union-Find Problem.
+### Kruskal’s Algorithm (recap):
+*Sort the edges in the given graph G by length and examine them from shortest to longest. Put each edge into the current forest if it doesn’t form a cycle with the edges chosen so far.
 
