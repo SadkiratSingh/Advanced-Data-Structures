@@ -59,3 +59,12 @@ Dijkstra (G, w, r) {
 **Sort the edges in the given graph G by length and examine them from shortest to longest. Put each edge into the current forest if it doesn’t form a cycle with the edges chosen so far.**
 
 The initial step takes time O(|E| log |E|) to sort. Then, for each edge, we need to test if it connects two different components. If it does, we will insert the edge, merging the two components into one; if it doesn’t (the two endpoints are in the same component), then we will skip this edge and go on to the next edge. So, to do this efficiently we need a data structure that can support the basic operations of (a) determining if two nodes are in the same component, and (b) merging two components together. This is the union-find problem.
+
+### General setting of union find problem. This has been demonstrated in
+[Github]https://github.com/SadkiratSingh/Advanced-Data-Structures/blob/master/disjoint%20sets/detect%20cycle.cpp
+> The general setting for the union-find problem is that we are maintaining a collection of disjoint sets {S1, S2, . . . , Sk} over some universe, with the following operations:
+> * MakeSet(x): create the set {x}.
+> * Union(x, y): replace the set x is in (let’s call it S) and the set y is in (let’s call it S′) with the single set S ∪ S′.
+> * Find(x): return the unique ID for the set containing x (this is just some representative element of this set).
+> Given these operations, we can implement Kruskal’s algorithm as follows. The sets Si will be the sets of vertices in the different trees in our forest. We begin with     MakeSet(v) for all vertices v (every vertex is in its own tree). When we consider some edge (v,w) in the algorithm, we just test whether Find(v) equals Find(w). If they are equal, it means that v and w are already in the same tree so we skip over the edge. If they are not equal, we insert the edge into our forest and perform a Union(v,w) operation. All together we will do |V | MakeSet operations, |V |−1 Unions, and 2|E| Find operations.
+
