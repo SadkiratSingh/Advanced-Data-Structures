@@ -87,7 +87,7 @@ elements in B to point to x->head. This takes time O(L2). Can we reduce this to 
 1. This will decrease the cost of the Union operations but will increase the cost of Find operations because we may have to take multiple hops.
 1. By doing this we no longer need the downward pointers: what we have in general is a collection of trees, with all links pointing up.
 1. Rather than deciding which of the two heads (or roots) should be the new one based on the size of their sets, perhaps there is some other quantity that would give us better performance. In particular, it turns out we can do better by setting the new root based on which tree has larger RANK.
-##### * by implementing the two optimizations described above (lazy updates and union-by-rank), the total cost is bounded above by O(mlg∗ n), where lg∗ n is the number of times you need to take log2 until you get down to 1.
+##### by implementing the two optimizations described above (lazy updates and union-by-rank), the total cost is bounded above by O(mlg∗ n), where lg∗ n is the number of times you need to take log2 until you get down to 1.
 We can now implement the operations as follows:
 > * Each element (node) will have two fields: a parent pointer that points to its parent in its tree (or itself if it is the root) and a rank, which is an integer used to determine which node becomes the new root in a Union operation.
 > * MakeSet(x): set x’s rank to 0 and its parent pointer to itself. This takes constant time.
@@ -96,16 +96,16 @@ We can now implement the operations as follows:
 
 ##### Properties of Rank
 ###### 1. The rank of a node is the same as what the height of its subtree would be if we didn’t do path compression.
-###### 1. if you take two trees of different heights and join them by making the root of the shorter tree into a child of the root of the taller tree, the heights do not change.
-###### 1. if the trees were the same height, then the final tree will have its height increase by 1.
-###### 1. If x is not a root node, then rank(x) < rank(parent(x)). This is because a node of rank k is created only by merging two roots of rank k – 1.
-###### 1. If x is not a root, then rank(x) will never change again. This is because rank changes only for roots; a nonroot never becomes a root.
-###### 1. If parent(x) changes, then rank(parent(x)) strictly increases. This is because the parent can change only for a root, so before linking parent(x) = x ; After x is linked-by-rank to new root r we have rank(r) > rank(x).
-###### 1. Any root node of rank k has ≥ 2<sup>k</sup> nodes in its tree.
+###### 2. if you take two trees of different heights and join them by making the root of the shorter tree into a child of the root of the taller tree, the heights do not change.
+###### 3. if the trees were the same height, then the final tree will have its height increase by 1.
+###### 4. If x is not a root node, then rank(x) < rank(parent(x)). This is because a node of rank k is created only by merging two roots of rank k – 1.
+###### 5. If x is not a root, then rank(x) will never change again. This is because rank changes only for roots; a nonroot never becomes a root.
+###### 6. If parent(x) changes, then rank(parent(x)) strictly increases. This is because the parent can change only for a root, so before linking parent(x) = x ; After x is linked-by-rank to new root r we have rank(r) > rank(x).
+###### 7. Any root node of rank k has ≥ 2<sup>k</sup> nodes in its tree.
        Proof. ( by induction on k )
        * Base case: true for k = 0.
        * Inductive hypothesis: assume true for k – 1.
        * A node of rank k is created only by merging two roots of rank k – 1.
-       * By inductive hypothesis, each subtree has ≥ 2<sup>k</sup> – 1 nodes
-       ⇒ resulting tree has ≥ 2<sup>k</sup> nodes.
-###### 1. The highest rank of a node is ≤ log<sub>2</sub>n
+       * By inductive hypothesis, each subtree has ≥ 2^k – 1 nodes
+       ⇒ resulting tree has ≥ 2^k nodes.
+###### 8. The highest rank of a node is ≤ log<sub>2</sub>n
