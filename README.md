@@ -64,31 +64,16 @@ The initial step takes time O(|E| log |E|) to sort. Then, for each edge, we need
 > * MakeSet(x): create the set {x}.
 > * Union(x, y): replace the set x is in (let’s call it S) and the set y is in (let’s call it S′) with the single set S ∪ S′.
 > * Find(x): return the unique ID for the set containing x (this is just some representative element of this set).
-> * Given these operations, we can implement Kruskal’s algorithm as follows. The sets Si will be the sets of vertices in the different trees in our forest. We begin with     MakeSet(v) for all vertices v (every vertex is in its own tree). When we consider some edge (v,w) in the algorithm, we just test whether Find(v) equals Find(w). If they are equal, it means that v and w are already in the same tree so we skip over the edge. If they are not equal, we insert the edge into our forest and perform a Union(v,w) operation. All together we will do |V | MakeSet operations, |V |−1 Unions, and 2|E| Find operations.
+> * Given these operations, we can implement Kruskal’s algorithm as follows. The sets S<sub>i</sub> will be the sets of vertices in the different trees in our forest. We begin with MakeSet(v) for all vertices v (every vertex is in its own tree). When we consider some edge (v,w) in the algorithm, we just test whether Find(v) equals Find(w). If they are equal, it means that v and w are already in the same tree so we skip over the edge. If they are not equal, we insert the edge into our forest and perform a Union(v,w) operation. All together we will do |V | MakeSet operations, |V |−1 Unions, and 2|E| Find operations.
+
+Note: Disjoint Sets is generally represented as a collection of trees, with all links pointing up.
 
 #### Time Complexity in detecting cycle in graphs using disjoint sets by brute force:
 ##### O(ExV).This is because we process every edge in the edge list. Further in each cycle of procession we check whether the nodes making the edge belong to different or same sets.
 
 #### Motive is now to optimize our Union-Find Problem
 
-##### Data Structure 1(list-based)
-1. In this data structure, the sets will be just represented as linked lists: each element has a pointer to the next element in its list.
-1. we will augment the list so that each element also has a pointer directly to head of its list.
-1. The head of the list is the representative element.
-We can now implement the operations as follows:
-> * MakeSet(x): just set x->head=x. This takes constant time.
-> * Find(x): just return x->head. Also takes constant time.
-> * Union(x, y): To perform a union operation we merge the two lists together, and reset the head pointers on one of the lists to point to the head of the other. Let A be the  list containing x and B be the list containing y, with lengths L1 and L2 respectively. Then we can do this in time O(L1 + L2) by appending B onto the end of A as follows: We first walk down A to the end, and set the final next pointer to point to y->head. This takes time O(L1). Next we go to y->head and walk down B, resetting head pointers of
-elements in B to point to x->head. This takes time O(L2). Can we reduce this to just O(L2)? Yes. Instead of appending B onto the end of A, we can just splice B into the middle of A, at x. i.e., let z=x->next, set x->next=y->head, then walk down B as above, and finally set the final next pointer of B to z. Can we reduce this to O(min(L1,L2))? Yes. Just store the length of each list in the head.Then compare and insert the shorter list into the middle of the longer one. Then update the length count to L1 + L2.
-
-##### Data Structure 2(tree-based)
-1. This approach will further optimize the Union-Find problem and disjoint sets are mostly represented by trees as it will be discussed in this approach.
-1. Instead of updating all the head pointers in list B (or whichever was shorter) when we perform a Union, we could do this in a lazy way, just pointing the head of B to the head of A and then waiting until we actually perform a find operation on some item x before updating its pointer.
-1. This will decrease the cost of the Union operations but will increase the cost of Find operations because we may have to take multiple hops.
-1. By doing this we no longer need the downward pointers: what we have in general is a collection of trees, with all links pointing up.
-1. Rather than deciding which of the two heads (or roots) should be the new one based on the size of their sets, perhaps there is some other quantity that would give us better performance. In particular, it turns out we can do better by setting the new root based on which tree has larger RANK.
-
-We can now implement the operations as follows:
+To optimize we can now implement the operations as follows:
 > * Each element (node) will have two fields: a parent pointer that points to its parent in its tree (or itself if it is the root) and a rank, which is an integer used to determine which node becomes the new root in a Union operation.
 > * MakeSet(x): set x’s rank to 0 and its parent pointer to itself. This takes constant time.
 > * Find(x): starting from x, follow the parent pointers until you reach the root, updating x and all the nodes we pass over to point to the root. This is called PATH COMPRESSION. The running time for Find(x) is proportional to (original) distance of x to its root.
