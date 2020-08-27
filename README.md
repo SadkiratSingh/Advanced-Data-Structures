@@ -112,3 +112,7 @@ Explanation: This is because the running time of each operation is bounded by th
 ###### 4. Any root node of rank k has ≥ 2<sup>k</sup> nodes in its tree.
 ###### 5. The highest rank of a node is ≤ lower_bound(log<sub>2</sub>n).
 ###### 6. For any integer r ≥ 0, there are ≤ n / 2<sup>r</sup> nodes with rank r.
+
+### Points regarding graph traversals
+1. DFS of graph requires O(V<sup>2</sup>) time if implemented with adjacency matrix.
+1. DFS of graph requires O(V+E) time if implemented with adjacency lists.
